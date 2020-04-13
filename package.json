@@ -1,0 +1,29 @@
+{
+  "name": "crypto-lib",
+  "version": "1.0.0",
+  "description": "crypto library",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node-dev --respawn src/index.ts",
+    "build": "tsc"
+  },
+  "author": "Ryuhei Matsuda <ryuheimat3@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@types/bigi": "^1.4.2",
+    "@types/node": "^13.11.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tslint": "^6.1.1",
+    "tslint-config-standard": "^9.0.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "bigi": "^1.4.2",
+    "bip39": "^3.0.2",
+    "bitcoinjs-lib": "^5.1.7",
+    "bs58check": "^2.1.2",
+    "js-sha256": "^0.9.0",
+    "wif": "^2.0.6"
+  }
+}
