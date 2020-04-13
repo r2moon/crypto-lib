@@ -1,13 +1,15 @@
-import generateAddress, { generateBTCAddress } from "./Address";
-import { generateMnemonic } from "./Key";
-import { seedToWif } from "./utils";
+import Key from "./Key";
+import utils from "./utils";
+import Address from "./Address";
 
-const mnemonic = generateMnemonic();
+const mnemonic = Key.generateMnemonic();
 
-console.log(generateAddress(mnemonic, "bitcoin"));
-
-export * from "./Address";
-export * from "./Key";
-export * from "./utils";
+console.log(Address.generate(mnemonic, "bitcoin"));
 
 export * from "./types";
+
+module.exports = {
+  utils,
+  Address,
+  Key,
+};

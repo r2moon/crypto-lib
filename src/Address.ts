@@ -1,15 +1,22 @@
 import * as bitcoinjs from "bitcoinjs-lib";
+import { Network } from "bitcoinjs-lib/types";
 
-import { seedToWif } from "./utils";
+import utils from "./utils";
 import { CoinType } from "./types";
 
 export const generateBTCAddress = (seed: string, options?: any): string => {
-  const wif = seedToWif(seed, options?.network);
+  let network: Network = bitcoinjs.networks.bitcoin;
+  if (options && options.network) {
+    network = options.network as Network;
+  }
 
-  const keyPair = bitcoinjs.ECPair.fromWIF(wif, options?.network);
+  const wif = utils.seedToWif(seed, network);
+
+  const keyPair = bitcoinjs.ECPair.fromWIF(wif, network);
+
   const address = bitcoinjs.payments.p2pkh({
     pubkey: keyPair.publicKey,
-    network: options?.network,
+    network: network,
   }).address!;
 
   return address;
@@ -27,4 +34,7 @@ const generateAddress = (
   }
 };
 
-export default generateAddress;
+export default {
+  generate: generateAddress,
+  generateBTCAddress,
+};

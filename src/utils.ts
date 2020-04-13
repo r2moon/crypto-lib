@@ -4,10 +4,7 @@ const bs58check = require("bs58check");
 import bigi from "bigi";
 import { sha256 } from "js-sha256";
 
-export const seedToWif = (
-  seed: string,
-  network?: bitcoinjs.Network
-): string => {
+const seedToWif = (seed: string, network?: bitcoinjs.Network): string => {
   let isWif = false;
 
   try {
@@ -26,4 +23,8 @@ export const seedToWif = (
       throw new Error("provided string is a WIF key");
     }
   }
+};
+
+export default {
+  seedToWif,
 };
