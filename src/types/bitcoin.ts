@@ -34,7 +34,7 @@ export type Vout = {
   spent: boolean;
 };
 
-export type BitconTrezorTxResponse = {
+export type BitcoinTrezorTxResponse = {
   txid: string;
   version: number;
   vin: Vin[];

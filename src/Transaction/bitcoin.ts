@@ -7,7 +7,7 @@ import config from "../config";
 import { TxFilterOptions } from "../types";
 import {
   BitcoinTrezorAddressInfo,
-  BitconTrezorTxResponse,
+  BitcoinTrezorTxResponse,
 } from "../types/bitcoin";
 
 const api = config.bitcoin.api;
@@ -40,7 +40,7 @@ export const getHistory = async (
 
   const txsRes = await Promise.all(promiseList);
   const txRedableRes = txsRes.map(
-    (txRes) => txRes.data as BitconTrezorTxResponse
+    (txRes) => txRes.data as BitcoinTrezorTxResponse
   );
   return txRedableRes;
 };
