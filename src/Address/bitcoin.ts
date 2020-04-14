@@ -3,18 +3,18 @@ import axios from "axios";
 
 import { getNetwork } from "../Network/bitcoin";
 
-import Key from "../Key";
-import utils from "../utils";
+import Key, { seedToWif } from "../Key";
 import config from "../config";
 
+import { BitcoinTrezorAddressInfo } from "../types/bitcoin";
 import { InvalidAddress } from "../Error";
 
-const generateAddress = (seed: string, isTestnet?: boolean): string => {
+export const generateAddress = (seed: string, isTestnet?: boolean): string => {
   Key.validateMnemonic(seed);
 
   const network = getNetwork(isTestnet);
 
-  const wif = utils.seedToWif(seed, network);
+  const wif = seedToWif(seed, network);
 
   const keyPair = bitcoinjs.ECPair.fromWIF(wif, network);
 
@@ -26,7 +26,7 @@ const generateAddress = (seed: string, isTestnet?: boolean): string => {
   return address;
 };
 
-const validateAddress = (address: string, isTestnet?: boolean) => {
+export const validateAddress = (address: string, isTestnet?: boolean) => {
   const network = getNetwork(isTestnet);
 
   try {
@@ -46,7 +46,8 @@ const getHumanBalance = async (
 
   try {
     const res = await axios.get(api + "/address/" + address);
-    return res.data.balance;
+    const addressInfo = res.data as BitcoinTrezorAddressInfo;
+    return addressInfo.balance;
   } catch (error) {
     return "0.0";
   }

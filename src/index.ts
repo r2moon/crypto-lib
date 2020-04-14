@@ -2,6 +2,8 @@ import Key from "./Key";
 import utils from "./utils";
 import Address from "./Address";
 
+import { getHistory } from "./Transaction/bitcoin";
+
 const test = async () => {
   const mnemonic =
     "high clog task open exchange course move wife advance glare near define";
@@ -12,6 +14,9 @@ const test = async () => {
   const balance = await Address.getBalance(address, "bitcoin");
 
   console.log(balance);
+
+  const tx = await getHistory(address);
+  console.log(tx);
 };
 
 test();
