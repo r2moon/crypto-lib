@@ -3,12 +3,15 @@ import axios from "axios";
 
 import { getNetwork } from "../Network/bitcoin";
 
+import Key from "../Key";
 import utils from "../utils";
 import config from "../config";
 
 import { InvalidAddress } from "../Error";
 
 const generateAddress = (seed: string, isTestnet?: boolean): string => {
+  Key.validateMnemonic(seed);
+
   const network = getNetwork(isTestnet);
 
   const wif = utils.seedToWif(seed, network);
@@ -28,9 +31,8 @@ const validateAddress = (address: string, isTestnet?: boolean) => {
 
   try {
     bitcoinjs.address.toOutputScript(address, network);
-    return true;
   } catch (err) {
-    return false;
+    throw new InvalidAddress();
   }
 };
 
@@ -38,9 +40,7 @@ const getHumanBalance = async (
   address: string,
   isTestnet?: boolean
 ): Promise<string> => {
-  if (!validateAddress(address)) {
-    throw new InvalidAddress();
-  }
+  validateAddress(address);
 
   const api = config.bitcoin.api;
 
@@ -54,5 +54,6 @@ const getHumanBalance = async (
 
 export default {
   generateAddress,
+  validateAddress,
   getHumanBalance,
 };
