@@ -36,7 +36,7 @@ export const validateAddress = (address: string, isTestnet?: boolean) => {
   }
 };
 
-const getHumanBalance = async (
+export const getHumanBalance = async (
   address: string,
   isTestnet?: boolean
 ): Promise<string> => {

@@ -31,7 +31,7 @@ export const getHistory = async (
   address: string,
   options?: TxFilterOptions,
   isTestnet?: boolean
-) => {
+): Promise<BitcoinTrezorTxResponse[]> => {
   validateAddress(address);
 
   const txIds = await getTxIds(address, options, isTestnet);
